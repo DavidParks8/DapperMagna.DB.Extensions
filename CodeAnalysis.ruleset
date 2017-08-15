@@ -13,5 +13,8 @@
     <Rule Id="SA1309" Action="Hidden" />
     <Rule Id="SA1633" Action="Hidden" />
     <Rule Id="SA1652" Action="Hidden" />
+    <Rule Id="SX1101" Action="Warning" />
+    <Rule Id="SX1309" Action="Warning" />
+    <Rule Id="SX1309S" Action="Warning" />
   </Rules>
 </RuleSet>

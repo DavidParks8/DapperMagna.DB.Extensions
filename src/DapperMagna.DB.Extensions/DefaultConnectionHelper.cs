@@ -4,6 +4,12 @@ using System.Threading.Tasks;
 
 namespace DapperMagna.DB.Extensions
 {
+    /// <summary>
+    /// Exposes <see cref="IDbConnection"/> without having to worry about connection lifetime.
+    /// With this interface, basic connection creation and disposal is abstracted away so
+    /// that one can focus on their business logic. Each method obtains an <see cref="IDbConnection"/>
+    /// and disposes it inline.
+    /// </summary>
     public class DefaultConnectionHelper : IConnectionHelper
     {
         private readonly Func<IDbConnection> _connectionFactory;
@@ -55,11 +61,26 @@ namespace DapperMagna.DB.Extensions
             }
         }
 
+        /// <summary>
+        /// Supplies a fresh <see cref="IDbConnection"/> to your <paramref name="action"/> then disposes it when the action completes,
+        /// committing upon success, and rolling back upon exception.
+        /// <remarks>No transactions should be created within the supplied <paramref name="action"/>.</remarks>
+        /// </summary>
+        /// <param name="action">A function which executes queries against the <see cref="IDbConnection"/>.</param>
+        /// <returns>An awaitable <see cref="Task"/>.</returns>
         public async Task ExecuteWithRollbackOnFailureAsync(Func<IDbConnection, Task> action)
         {
             await ExecuteWithRollbackOnFailureAsync(action, IsolationLevel.Snapshot);
         }
 
+        /// <summary>
+        /// Supplies a fresh <see cref="IDbConnection"/> to your <paramref name="action"/> then disposes it when the action completes,
+        /// committing upon success, and rolling back upon exception.
+        /// <remarks>No transactions should be created within the supplied <paramref name="action"/>.</remarks>
+        /// </summary>
+        /// <param name="action">A function which executes queries against the <see cref="IDbConnection"/>.</param>
+        /// <param name="isolationLevel">The isolation level to use in the internal transaction.</param>
+        /// <returns>An awaitable <see cref="Task"/>.</returns>
         public async Task ExecuteWithRollbackOnFailureAsync(Func<IDbConnection, Task> action, IsolationLevel isolationLevel)
         {
             if (action == null)
@@ -83,11 +104,28 @@ namespace DapperMagna.DB.Extensions
             }
         }
 
+        /// <summary>
+        /// Supplies a fresh <see cref="IDbConnection"/> to your <paramref name="action"/> then disposes it when the action completes,
+        /// committing upon success, rolling back upon exception, and return a result.
+        /// <remarks>No transactions should be created within the supplied <paramref name="action"/>.</remarks>
+        /// </summary>
+        /// <param name="action">A function which executes queries against the <see cref="IDbConnection"/>.</param>
+        /// <typeparam name="T">The return type.</typeparam>
+        /// <returns>An awaitable <see cref="Task"/> that returns a <typeparamref name="T"/>.</returns>
         public async Task<T> ExecuteWithRollbackOnFailureAsync<T>(Func<IDbConnection, Task<T>> action)
         {
             return await ExecuteWithRollbackOnFailureAsync(action, IsolationLevel.Snapshot);
         }
 
+        /// <summary>
+        /// Supplies a fresh <see cref="IDbConnection"/> to your <paramref name="action"/> then disposes it when the action completes,
+        /// committing upon success, rolling back upon exception, and return a result.
+        /// <remarks>No transactions should be created within the supplied <paramref name="action"/>.</remarks>
+        /// </summary>
+        /// <param name="action">A function which executes queries against the <see cref="IDbConnection"/>.</param>
+        /// <param name="isolationLevel">The isolation level to use in the internal transaction.</param>
+        /// <typeparam name="T">The return type.</typeparam>
+        /// <returns>An awaitable <see cref="Task"/> that returns a <typeparamref name="T"/>.</returns>
         public async Task<T> ExecuteWithRollbackOnFailureAsync<T>(Func<IDbConnection, Task<T>> action, IsolationLevel isolationLevel)
         {
             if (action == null)
