@@ -4,6 +4,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <DebugType>Full</DebugType>
     <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>DapperMagna LLC</Authors>
+    <Company>DapperMagna LLC</Company>
+    <PackageTags>Dapper DapperMagna Magna DB Extensions</PackageTags>
+    <PackageProjectUrl>https://github.com/DavidParks8/DapperMagna.DB.Extensions</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/DavidParks8/DapperMagna.DB.Extensions/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/DavidParks8/DapperMagna.DB.Extensions.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
