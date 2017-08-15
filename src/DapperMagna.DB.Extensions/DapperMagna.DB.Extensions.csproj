@@ -15,12 +15,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;1705;SA1101;SA1633;SA1309</NoWarn>
+    <NoWarn>1701;1702;1705</NoWarn>
     <DocumentationFile>bin\Debug\netstandard2.0\DapperMagna.DB.Extensions.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;1705;SA1101;SA1633;SA1309</NoWarn>
+    <NoWarn>1701;1702;1705</NoWarn>
     <DocumentationFile>bin\Release\netstandard2.0\DapperMagna.DB.Extensions.xml</DocumentationFile>
   </PropertyGroup>
 
