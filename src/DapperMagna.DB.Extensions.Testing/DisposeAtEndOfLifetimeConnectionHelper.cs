@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace DapperMagna.DB.Extensions.Testing
@@ -126,6 +127,7 @@ namespace DapperMagna.DB.Extensions.Testing
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void CheckDisposal()
         {
             if (_disposed)
