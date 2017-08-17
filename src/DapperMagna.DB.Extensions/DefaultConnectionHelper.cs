@@ -37,6 +37,7 @@ namespace DapperMagna.DB.Extensions
 
             using (var connection = _connectionFactory())
             {
+                GuaranteeOpenState(connection);
                 await action(connection);
             }
         }
@@ -57,6 +58,7 @@ namespace DapperMagna.DB.Extensions
 
             using (var connection = _connectionFactory())
             {
+                GuaranteeOpenState(connection);
                 return await action(connection);
             }
         }
@@ -89,17 +91,20 @@ namespace DapperMagna.DB.Extensions
             }
 
             using (var connection = _connectionFactory())
-            using (var transaction = connection.BeginTransaction(isolationLevel))
             {
-                try
+                GuaranteeOpenState(connection);
+                using (var transaction = connection.BeginTransaction(isolationLevel))
                 {
-                    await action(connection);
-                    transaction.Commit();
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                    throw;
+                    try
+                    {
+                        await action(connection);
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }
@@ -134,19 +139,40 @@ namespace DapperMagna.DB.Extensions
             }
 
             using (var connection = _connectionFactory())
-            using (var transaction = connection.BeginTransaction(isolationLevel))
             {
-                try
+                GuaranteeOpenState(connection);
+                using (var transaction = connection.BeginTransaction(isolationLevel))
                 {
-                    var result = await action(connection);
-                    transaction.Commit();
-                    return result;
+                    try
+                    {
+                        var result = await action(connection);
+                        transaction.Commit();
+                        return result;
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                    throw;
-                }
+            }
+        }
+
+        /// <summary>
+        /// Opens the <paramref name="connection"/> if it is not already.
+        /// </summary>
+        /// <param name="connection">A connection to open.</param>
+        protected static void GuaranteeOpenState(IDbConnection connection)
+        {
+            if (connection == null)
+            {
+                throw new ArgumentNullException(nameof(connection));
+            }
+
+            if (connection.State != ConnectionState.Open
+                && connection.State != ConnectionState.Connecting)
+            {
+                connection.Open();
             }
         }
     }
