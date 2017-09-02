@@ -1,0 +1,28 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+nuget:
+  disable_publish_on_pr: true
+before_build:
+- ps: dotnet restore src
+build:
+  verbosity: minimal
+artifacts:
+- path: src/DapperMagna.DB.Extensions*/bin/**/*.*
+deploy:
+- provider: NuGet
+  skip_symbols: true
+  on:
+    branch: master
