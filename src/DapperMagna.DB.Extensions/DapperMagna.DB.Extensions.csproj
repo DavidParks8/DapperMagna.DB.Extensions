@@ -12,6 +12,9 @@
     <PackageLicenseUrl>https://github.com/DavidParks8/DapperMagna.DB.Extensions/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/DavidParks8/DapperMagna.DB.Extensions.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <Description>Basic connection creation and disposal abstracted away so that one can focus on their business logic.</Description>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Build Management\strong-name.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -30,6 +33,10 @@
 
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Build Management\strong-name.snk" Link="strong-name.snk" />
   </ItemGroup>
 
   <ItemGroup>

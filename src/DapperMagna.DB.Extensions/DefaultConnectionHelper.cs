@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 namespace DapperMagna.DB.Extensions
 {
     /// <summary>
-    /// Exposes <see cref="IDbConnection"/> without having to worry about connection lifetime.
+    /// Exposes <see cref="T:System.Data.IDbConnection" /> without having to worry about connection lifetime.
     /// With this interface, basic connection creation and disposal is abstracted away so
-    /// that one can focus on their business logic. Each method obtains an <see cref="IDbConnection"/>
+    /// that one can focus on their business logic. Each method obtains an <see cref="T:System.Data.IDbConnection" />
     /// and disposes it inline.
     /// </summary>
     public class DefaultConnectionHelper : IConnectionHelper

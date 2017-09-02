@@ -3,6 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <CodeAnalysisRuleSet>..\..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>DapperMagna LLC</Authors>
+    <Company>DapperMagna LLC</Company>
+    <PackageLicenseUrl>https://github.com/DavidParks8/DapperMagna.DB.Extensions/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/DavidParks8/DapperMagna.DB.Extensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DavidParks8/DapperMagna.DB.Extensions.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Dapper DapperMagna Magna DB Extensions Test Testing</PackageTags>
+    <Description>Test helper classes for the DapperMagna.DB.Extensions package.</Description>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Build Management\strong-name.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -19,6 +30,10 @@
 
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Build Management\strong-name.snk" Link="strong-name.snk" />
   </ItemGroup>
 
   <ItemGroup>
