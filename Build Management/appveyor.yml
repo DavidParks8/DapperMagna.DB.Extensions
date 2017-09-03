@@ -19,6 +19,8 @@ before_build:
 - ps: dotnet restore src
 build:
   verbosity: minimal
+test_script:
+- ps: dotnet test src --configuration Release --no-build --no-restore --filter TestCategory=Unit
 artifacts:
 - path: src/DapperMagna.DB.Extensions*/bin/**/*.*
 deploy:
